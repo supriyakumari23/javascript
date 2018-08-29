@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <style type="text/css">
+      
+      .mystyle {
+    
+    border:3px solid red;
+}
+    </style>
+
+     
+   </head>
+   <body>
+    <div id="myinput">
+      <input type="text">
+    </div>
+    <div id="myform">
+      <form    name="feedback" action="#" method=post style="  margin-left: 50px;" >
+         <fieldset style="width:800px;">
+            <legend>Registration</legend>
+            <br><br>
+            NAME: &nbsp   &nbsp  &nbsp  &nbsp  &nbsp  &nbsp <input type="text" name="fname"  onfocusin ="addremoveclass1()"><br><br>
+            GENDER:  &nbsp &nbsp  &nbsp <input type="radio" name="gender"  value="MALE">MALE
+            <input type="radio" name="gender"  value="FEMALE">FEMALE <br><br>
+            CITY:  &nbsp  &nbsp  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp 
+            <select name="city" id="city" style="width:245px;">
+               <option value="0">SELECT</option>
+               <br>
+               <option  value="nawada">Nawada</option>
+               <br>
+               <option value="gaya">Gaya</option>
+               <br>
+               <option value="patna">Patna</option>
+               <br>
+               <option value="pondicherry">Pondicherry</option>
+               <br><br>
+            </select>
+            <br><br>
+            ACADEMIC:  &nbsp &nbsp  &nbsp <input type="radio" name="academic"  value="Bca">Bca
+            <input type="radio" name="academic"  value="Mca">Mca 
+            <input type="radio" name="academic"  value="Btech">Btech 
+            <input type="radio" name="academic"  value="PHD">PHD <br><br>     
+            Sunday:&nbsp &nbsp<input type="checkbox" name="day" value="Sunday" ><br><br>
+            Monday:&nbsp &nbsp<input type="checkbox" name="day" value=" Monday" ><br><br>
+            Tuesday:&nbsp &nbsp<input type="checkbox" name="day" value="Tuesday" ><br>
+            Message:&nbsp &nbsp &nbsp &nbsp &nbsp 
+            <textarea rows="4" cols="50"  name="message2"  onfocus="addremoveclass2()"> </textarea>
+            <br><br>
+            <input type="button" name="SubmitButton" value="Submit" onclick="printvalue(this.form)">&nbsp
+            <input type="button" name="FillButton" value="Fill" onclick="fillValues(this.form)" >&nbsp
+           <input type="button" name="ResetButton" value="Reset" onclick="this.form.reset()" onclick="default()">
+         </fieldset>
+      </form >
+    </div><!--end of form div-->
+      <br>
+      <div id="display" style="margin-left: 50px; margin-top:0px; "></div>
+      <div id="displayradio" style="margin-left: 50px; "></div>
+      <div id="displaydrop" style="margin-left: 50px; "></div>
+      <div id="displayradiofor_Academic" style="margin-left: 50px; "></div>
+      <div id="displaycheckbox" style="margin-left: 50px; "></div>
+      <div id="displaytextarea" style="margin-left: 50px; "></div>
+
+
+
+ <script>
+         function printvalue(form)
+         {
+         
+         //input box...........
+         var x=document.getElementsByName("fname")[0].value;
+         document.getElementById("display").innerHTML=x;
+         //document.querySelectorAll("div").[0].innerHTML=x;
+          
+         //radio gender...............
+         
+         
+         if(form.gender[0].checked==true)
+         {
+         
+            var x = document.getElementsByName("gender")[0].value;
+            document.getElementById("displayradio").innerHTML = x;}
+            else
+            {
+            var x = document.getElementsByName("gender")[1].value;
+            document.getElementById("displayradio").innerHTML = x;
+            }
+
+
+          //dropdown...............
+
+
+            var arr = document.getElementsByName('city'); //will be an array
+            var cityVal=arr[0].options[arr[0].selectedIndex].value;
+            document.getElementById("displaydrop").innerHTML = cityVal;
+
+            
+          //radio Academic...................
+           
+         
+          var radios = document.getElementsByName("academic");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    document.getElementById("displayradiofor_Academic").innerHTML =  radios[i].value;
+                    break;
+                }
+            }
+            
+            
+         //checkbox.........................
+
+         
+          var items=document.getElementsByName('day');
+         var selectedItems="";
+         for(var i=0; i<items.length; i++){
+          if(items[i].type=='checkbox' && items[i].checked==true)
+            selectedItems+=items[i].value +" ";
+            }
+         document.getElementById("displaycheckbox").innerHTML =  selectedItems;
+              
+         
+            
+         
+          //textarea.................
+         
+          var x=document.getElementsByName("message2")[0].value;
+         document.getElementById("displaytextarea").innerHTML=x;
+         
+         };
+
+           
+function fillValues(form)
+         {
+          var formJSON = {
+            name : "Supriya Kesari",
+            gender : "female",
+            city : "patna",
+            academic : "Mca",
+            checkbox : ["Sunday", "Tuesday"],
+            message : "good girl"
+            };
+
+
+      //input box...........
+         document.getElementsByName("fname")[0].value = formJSON.name;
+         
+         
+          
+        
+    //radio gender..........
+
+
+    if(formJSON.gender == "male"){
+      //form["male"].checked = true;
+      form.gender[0].checked=true;
+
+    
+    }else
+    {
+      
+      //form["female"].checked = true;
+      form.gender[1].checked=true;
+    }
+
+
+      //dropdown............
+
+      document.getElementsByName("city")[0].value = formJSON.city;
+      //document.getElementsByName("city").value = formJSON.city;
+      /*var arr = document.getElementsByName('city'); //will be an array
+            var cityval=arr[0].options[arr[0].selectedIndex].value;
+            document.getElementById("displaydrop").innerHTML = cityVal;*/
+       //dropdown............
+     
+  
+
+      
+      //radio Academic.......................
+
+      if(formJSON.academic == "Bca"){
+      //form["Bca"].checked = true;
+      form.academic[0].checked=true;
+    
+      }else if(formJSON.academic == "Mca")
+   
+    {
+       
+      //form["Mca"].checked = true;
+      form.academic[1].checked=true;
+      
+
+    }else if(formJSON.academic == "Btech")
+    {
+      
+      //form["Btech"].checked = true;
+       form.academic[2].checked=true;
+    }else if(formJSON.academic == "PHD")
+    {
+      
+      //form["PHD"].checked = true;
+      form.academic[3].checked=true;
+    }
+
+
+    
+
+    //days Checkbox.......................
+
+    if (formJSON.checkbox.indexOf("Sunday") !== -1) 
+    {
+      form.day[0].checked = true;
+      //document.getElementById("sun").checked = true;
+    }
+
+    if (formJSON.checkbox.indexOf("Monnday") !== -1) 
+    {
+      form.day[1].checked = true;
+      //document.getElementById("mon").checked = true;
+    }
+
+    if (formJSON.checkbox.indexOf("Tuesday") !== -1) 
+    {
+      form.day[2].checked = true;
+      //document.getElementById("tue").checked = true;
+    }
+
+
+
+    //message textarea.........
+
+      document.getElementsByName("message2")[0].value  = formJSON.message;
+         
+  };
+
+  //addremoveclass
+
+  function addremoveclass1() {
+  var x = document.querySelectorAll("#myform input");
+  var y = document.querySelectorAll("#myform textarea");
+    x[0].classList.add("mystyle");
+    y[0].classList.remove("mystyle");
+    //document.querySelector("#myDIV").classList.add("mystyle");
+    //document.querySelector("#myDIV2").classList.remove("mystyle");
+}
+function addremoveclass2() {
+  
+  var x = document.querySelectorAll("#myform input");
+  var y = document.querySelectorAll("#myform textarea");
+  
+    
+     x[0].classList.remove("mystyle");
+     y[0].classList.add("mystyle");
+   
+    
+    //document.querySelector("#myDIV2").classList.add("mystyle");
+    //document.querySelector("#myDIV").classList.remove("mystyle");
+}
+
+
+
+         
+         
+      </script>
+
+   </body>
+</html>
